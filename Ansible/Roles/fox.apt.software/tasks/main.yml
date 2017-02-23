@@ -1,0 +1,8 @@
+---
+
+- name: Install software packages
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items: "{{ software }}"
+  become: yes

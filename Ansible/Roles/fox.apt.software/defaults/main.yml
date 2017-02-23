@@ -1,0 +1,10 @@
+---
+
+software:
+  - git
+  - vim
+  - python
+  - curl
+  - wget
+  - zsh
+  - tig
