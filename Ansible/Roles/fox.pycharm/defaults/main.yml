@@ -1,0 +1,5 @@
+---
+
+download_link: https://download.jetbrains.com/python/pycharm-community-2016.3.2.tar.gz
+pycharm_dir: "/home/{{ ansible_user }}/PyCharm"
+pycharm_dl: "/home/{{ ansible_user }}/Downloads/pycharm.tar.gz"

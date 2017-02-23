@@ -1,0 +1,24 @@
+---
+
+- name: Check if PyCharm is installed already
+  stat:
+    path: "{{ pycharm_dir }}"
+  register: pycharm_dir
+
+- name: Download PyCharm
+  get_url:
+    url: "{{ download_link }}"
+    dest: "{{ pycharm_dl }}"
+  when: pycharm_dir.stat.isdir is defined and pycharm_dir.stat.isdir
+  register: pc_avail
+
+- name: Extract PyCharm
+  unarchive:
+    src: "{{ pycharm_dl }}"
+    dest: "{{ pycharm_dir }}"
+  when: pycharm_dir.stat.isdir is defined and pycharm_dir.stat.isdir
+
+- name: Print Installation Instructions
+  debug:
+    msg: "Execute {{ pycharm_dir }}/bin/install.sh and follow the instructions"
+  when: pycharm_dir.stat.isdir is defined and pycharm_dir.stat.isdir
