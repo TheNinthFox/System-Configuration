@@ -5,3 +5,4 @@
     - {role: fox.apt.software}
     - {role: fox.pycharm}
     - {role: fox.chrome}
+    - {role: fox.ksuperkey}

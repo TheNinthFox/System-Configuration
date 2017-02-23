@@ -8,3 +8,8 @@ software:
   - wget
   - zsh
   - tig
+  - gcc
+  - make
+  - libx11-dev
+  - libxtst-dev
+  - pkg-config

@@ -1,0 +1,6 @@
+---
+
+ksup_binary: /usr/bin/ksuperkey
+ksup_repo: https://github.com/hanschen/ksuperkey.git
+ksup_dir: "/home/{{ ansible_user }}/Downloads/ksuperkey"
+autostart_dir: "/home/{{ ansible_user }}/.config/autostart-scripts"

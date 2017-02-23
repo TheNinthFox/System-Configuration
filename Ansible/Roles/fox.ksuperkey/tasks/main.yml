@@ -1,0 +1,39 @@
+---
+
+- name: Check if ksuperkey exists
+  stat:
+    path: "{{ ksup_binary }}"
+  register: ksup
+
+- name: Clone ksuperkey
+  git:
+    repo: "{{ ksup_repo }}"
+    dest: "{{ ksup_dir }}"
+  when: ksup.stat.exists == False
+
+- name: Make ksuperkey
+  shell: "make"
+  args:
+    chdir: "{{ ksup_dir }}"
+  when: ksup.stat.exists == False
+
+- name: Install ksuperkey
+  shell: "sudo make install"
+  args:
+    chdir: "{{ ksup_dir }}"
+  when: ksup.stat.exists == False
+
+- name: Delete ksuperkey directory
+  file:
+    path: "{{ ksup_dir }}"
+    state: absent
+  when: ksup.stat.exists == False
+
+- name: Add symlink to autostart
+  file:
+    src: "{{ ksup_binary }}"
+    dest: "{{ autostart_dir }}/ksuperkey"
+    state: link
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+  when: ksup.stat.exists == False
