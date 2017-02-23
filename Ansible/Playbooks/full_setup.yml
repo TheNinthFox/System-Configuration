@@ -6,3 +6,5 @@
     - {role: fox.pycharm}
     - {role: fox.chrome}
     - {role: fox.ksuperkey}
+
+# Todo: Add konsole profile and colorscheme role
