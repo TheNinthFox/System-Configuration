@@ -18,6 +18,12 @@
     dest: "{{ pycharm_dir }}"
   when: pycharm_dir.stat.isdir is defined and pycharm_dir.stat.isdir
 
+- name: Delete tar file
+  file:
+    path: "{{ pycharm_dl }}"
+    state: absent
+  when: pycharm_dir.stat.isdir is defined and pycharm_dir.stat.isdir
+
 - name: Print Installation Instructions
   debug:
     msg: "Execute {{ pycharm_dir }}/bin/install.sh and follow the instructions"

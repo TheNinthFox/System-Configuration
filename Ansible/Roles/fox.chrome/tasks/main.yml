@@ -1,0 +1,41 @@
+---
+
+- name: Check if Chrome exists
+  stat:
+    path: "{{ chrome_binary }}"
+  register: chrome
+
+- name: Download Chrome
+  get_url:
+    url: "{{ chrome_dl }}"
+    dest: "{{ chrome_dest }}"
+  when: chrome.stat.exists == False
+
+- name: Check if download succeeded
+  stat:
+    path: "{{ chrome_dest }}"
+  register: dl
+  when: chrome.stat.exists == False
+
+- name: Install Chrome .deb
+  shell: "sudo dpkg -i {{ chrome_dest }}"
+  become: yes
+  ignore_errors: yes
+  when: chrome.stat.exists == False and dl.stat.exists == True
+
+- name: Fix dependency errors
+  shell: "sudo apt-get install -f"
+  become: yes
+  when: chrome.stat.exists == False and dl.stat.exists == True
+
+- name: Rerun Chrome .deb installation
+  shell: "sudo dpkg -i {{ chrome_dest }}"
+  become: yes
+  ignore_errors: yes
+  when: chrome.stat.exists == False and dl.stat.exists == True
+
+- name: Delete Chrome .deb
+  file:
+    path: "{{ chrome_dest }}"
+    state: absent
+  when: chrome.stat.exists == False and dl.stat.exists == True
